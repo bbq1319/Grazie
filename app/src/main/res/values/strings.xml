@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Grazie</string>
+    <string name="title_coffee">Coffee</string>
+    <string name="title_beverage">Beverage</string>
+    <string name="title_dessert">Dessert</string>
+    <string name="title_information">Information</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
