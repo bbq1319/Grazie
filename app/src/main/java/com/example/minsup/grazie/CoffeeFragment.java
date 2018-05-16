@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -38,14 +39,16 @@ public class CoffeeFragment extends Fragment {
         listView = v.findViewById(R.id.menuListview);
         listView.setAdapter(adapter);
 
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "에스프레소", "", "Espresso", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "아메리카노", "", "Americano", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "헤이즐넛", "", "Hazlenut", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카푸치노", "", "Cappuchino", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페라떼", "", "Cafe Latte", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "라떼", "바닐라/브라우니/카라멜", "Vanilla/Brownie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카라멜마끼야또", "",  "Caramel Macchiato","2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페캬라멜로", "", "Cafe Caramelo", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페모카", "다크", "Cafe Mocha(Dark)", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페모카", "카라멜/브라우니", "Cafe Mocha(Caramel/Brownie)", "2000원");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,7 +60,7 @@ public class CoffeeFragment extends Fragment {
                 String menuPrice = item.getMenuPrice();
 
                 OrderFragment orderFragment = new OrderFragment();
-                Bundle bundle = new Bundle(3);
+                Bundle bundle = new Bundle();
                 bundle.putString("menuImage", String.valueOf(menuImage));
                 bundle.putString("menuName", menuName);
                 bundle.putString("menuPrice", menuPrice);

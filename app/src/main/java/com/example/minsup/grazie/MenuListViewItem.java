@@ -11,6 +11,24 @@ public class MenuListViewItem {
     private Drawable menuImage;
     private String menuName;
     private String menuPrice;
+    private String menuTaste;
+    private String menuEngName;
+
+    public String getMenuEngName() {
+        return menuEngName;
+    }
+
+    public void setMenuEngName(String menuEngName) {
+        this.menuEngName = menuEngName;
+    }
+
+    public String getMenuTaste() {
+        return menuTaste;
+    }
+
+    public void setMenuTaste(String menuTaste) {
+        this.menuTaste = menuTaste;
+    }
 
     public Drawable getMenuImage() {
         return menuImage;

@@ -36,7 +36,7 @@ public class OrderFragment extends Fragment {
         String menuName = getArguments().getString("menuName");
         String menuPrice = getArguments().getString("menuPrice");
 
-        orderImage.setImageDrawable(Drawable.createFromPath(menuImage));
+        orderImage.setImageResource(Integer.parseInt(menuImage));
         orderName.setText(menuName);
         orderPrice.setText(menuPrice);
 

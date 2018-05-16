@@ -51,23 +51,29 @@ public class MenuListViewAdapter extends BaseAdapter {
         }
 
         ImageView iconDrawable = convertView.findViewById(R.id.imageView);
-        TextView menuName = convertView.findViewById(R.id.textView1);
-        TextView menuPrice = convertView.findViewById(R.id.textView2);
+        TextView menuName = convertView.findViewById(R.id.txt_name);
+        TextView menuTaste = convertView.findViewById(R.id.txt_taste);
+        TextView menuEngName = convertView.findViewById(R.id.txt_eng_name);
+        TextView menuPrice = convertView.findViewById(R.id.txt_price);
 
         MenuListViewItem menuListViewItem = listViewItemList.get(position);
 
         iconDrawable.setImageDrawable(menuListViewItem.getMenuImage());
         menuName.setText(menuListViewItem.getMenuName());
+        menuTaste.setText(menuListViewItem.getMenuTaste());
+        menuEngName.setText(menuListViewItem.getMenuEngName());
         menuPrice.setText(menuListViewItem.getMenuPrice());
 
         return convertView;
     }
 
-    public void addItem(Drawable icon, String name, String price) {
+    public void addItem(Drawable icon, String name, String taste, String engName, String price) {
         MenuListViewItem item = new MenuListViewItem();
 
         item.setMenuImage(icon);
         item.setMenuName(name);
+        item.setMenuTaste(taste);
+        item.setMenuEngName(engName);
         item.setMenuPrice(price);
 
         listViewItemList.add(item);
