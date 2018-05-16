@@ -22,9 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="#DCDCDC"
+        android:background="@color/colorPrimaryDark"
+        app:itemIconTint="#CFD8DC"
+        app:itemTextColor="#CFD8DC"
         app:menu="@menu/navigation" />
 
 </LinearLayout>

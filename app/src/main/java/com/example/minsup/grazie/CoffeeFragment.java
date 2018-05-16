@@ -1,16 +1,17 @@
 package com.example.minsup.grazie;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -48,7 +49,7 @@ public class CoffeeFragment extends Fragment {
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카라멜마끼야또", "",  "Caramel Macchiato","2000원");
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페캬라멜로", "", "Cafe Caramelo", "2000원");
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페모카", "다크", "Cafe Mocha(Dark)", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페모카", "카라멜/브라우니", "Cafe Mocha(Caramel/Brownie)", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카페모카", "카라멜/브라우니", "Caramel/Brownie", "2000원");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,12 +58,19 @@ public class CoffeeFragment extends Fragment {
 
                 Drawable menuImage = item.getMenuImage();
                 String menuName = item.getMenuName();
+                String menuTaste = item.getMenuTaste();
+                String menuEngName = item.getMenuEngName();
                 String menuPrice = item.getMenuPrice();
+
+                BitmapDrawable drawable = (BitmapDrawable) menuImage;
+                Bitmap bitmap = drawable.getBitmap();
 
                 OrderFragment orderFragment = new OrderFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("menuImage", String.valueOf(menuImage));
+                bundle.putParcelable("menuImage", bitmap);
                 bundle.putString("menuName", menuName);
+                bundle.putString("menuTaste", menuTaste);
+                bundle.putString("menuEngName", menuEngName);
                 bundle.putString("menuPrice", menuPrice);
                 orderFragment.setArguments(bundle);
                 FragmentManager manager1 = getFragmentManager();

@@ -1,8 +1,8 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.minsup.grazie.OrderFragment">
 
@@ -17,37 +17,110 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="3">
 
-            <ImageView
+            <com.example.minsup.grazie.CircleImageView
                 android:id="@+id/orderImage"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"/>
+                android:layout_weight="4"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="2dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/orderName"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"/>
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/orderName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <TextView
+                        android:id="@+id/orderTaste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:gravity="bottom"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+                
+                <TextView
+                    android:id="@+id/orderEngName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16dp"
+                    android:textColor="#000000"
+                    android:layout_weight="1"/>
 
                 <TextView
                     android:id="@+id/orderPrice"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16dp"
+                    android:textColor="#000000"
                     android:layout_weight="1"/>
                 
-                <TextView
-                    android:id="@+id/orderQuantity"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="2"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginRight="80dp"
+                    android:orientation="horizontal">
+                    
+                    <Button
+                        android:id="@+id/orderMinus"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="-"
+                        android:textSize="20dp"
+                        android:background="#CFD8DC"/>
+                    
+                    <TextView
+                        android:id="@+id/orderQuantity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="20dp"
+                        android:textColor="#000000"
+                        android:textAlignment="center"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:inputType="number"/>
+
+                    <Button
+                        android:id="@+id/orderPlus"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="+"
+                        android:textSize="20dp"
+                        android:background="#CFD8DC"/>
+                    
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -59,26 +132,100 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="예상 도착시간 (분)"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimary"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="60dp">
+
+                <EditText
+                    android:id="@+id/arrival_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:hint="예상 도착시간을 적어주세요. (분)"
+                    android:textSize="14dp"
+                    android:textColor="#000000"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/arrival_check"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/colorPrimary"
+                    android:text="확인"
+                    android:textColor="@color/colorAccent"/>
+
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:id="@+id/taste_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="맛 선택"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimary"/>
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/taste_spinner"
                 android:layout_gravity="center"
                 android:layout_width="280dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp"
+                android:entries="@array/arrival_taste"/>
 
-            <Spinner
-                android:layout_gravity="center"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="20dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:text="담기"
+                android:textSize="18dp"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimary"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:text="주문하기"
+                android:textSize="18dp"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimary"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </FrameLayout>
