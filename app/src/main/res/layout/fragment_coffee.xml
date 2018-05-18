@@ -6,9 +6,11 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ListView
-        android:id="@+id/menuListview"
+        android:id="@+id/menuCoffeeListview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:dividerHeight="8dp"
+        android:divider="#ffffff">
 
     </ListView>
 
