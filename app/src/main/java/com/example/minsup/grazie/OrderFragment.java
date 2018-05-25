@@ -93,12 +93,11 @@ public class OrderFragment extends Fragment {
             taste_choice.setVisibility(View.VISIBLE);
             spinner_taste.setVisibility(View.VISIBLE);
 
-            spinner_taste.setPrompt("맛을 선택해주세요.");
-
             ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.latte_taste, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(R.layout.custom_simple_dropdown_item_1line);
             spinner_taste.setAdapter(adapter);
             spinner_taste.setSelection(0);
+            spinner_taste.setPrompt("맛을 선택해주세요.");
 
             spinner_taste.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
