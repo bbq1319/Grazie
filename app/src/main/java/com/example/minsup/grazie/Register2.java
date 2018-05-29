@@ -18,6 +18,7 @@ public class Register2 extends AppCompatActivity {
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                 .setAllowNewEmailAccounts(true).build(), PER_LOGIN);
 
+
     }
 
     @Override

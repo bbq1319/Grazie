@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "827626598411-7f029mgte5bnfqs4vafp6icp062n5of1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minsup.grazie",
+            "certificate_hash": "d4293997d6acb411f45c6c56af863e7babea0eaa"
+          }
+        },
+        {
+          "client_id": "827626598411-678a9nbntk0ffl87qb6psnslhpqbkmk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.minsup.grazie",
+            "certificate_hash": "cd400ffac29afdd6994a4fadf0e2008ef77cdb71"
+          }
+        },
+        {
           "client_id": "827626598411-9gelr24shfl7an72gafmp0chio0b5u0s.apps.googleusercontent.com",
           "client_type": 3
         },
@@ -33,8 +49,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827626598411-9gelr24shfl7an72gafmp0chio0b5u0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

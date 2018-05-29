@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.minsup.grazie"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -27,9 +27,12 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-vector-drawable:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:customtabs:26.+'
+    implementation 'com.google.firebase:firebase-database:12.0.1'
     compile 'com.firebaseui:firebase-ui-auth:2.3.0'
-    compile 'com.google.firebase:firebase-auth:12.0.0'
-    compile 'com.google.android.gms:play-services-auth:12.0.0'
+    compile 'com.firebaseui:firebase-ui:2.3.0'
+    compile 'com.google.firebase:firebase-auth:12.0.1'
+    compile 'com.google.android.gms:play-services-auth:12.0.1'
     compile 'com.android.volley:volley:1.0.0'
     compile 'org.jsoup:jsoup:1.10.3'
     testImplementation 'junit:junit:4.12'

@@ -74,6 +74,6 @@ public class Status extends AppCompatActivity {
 
         txt_email.setText(new StringBuilder("Email : ").append(user.getEmail()));
         txt_uid.setText(new StringBuilder("UID : ").append(user.getUid()));
-        txt_status.setText(new StringBuilder("STATUS : ").append(user.getUid()));
+        txt_status.setText(new StringBuilder("STATUS : ").append(String.valueOf(user.isEmailVerified())));
     }
 }
