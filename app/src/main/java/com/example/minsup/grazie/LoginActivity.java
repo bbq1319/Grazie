@@ -1,19 +1,12 @@
 package com.example.minsup.grazie;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,10 +20,18 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         TextView registerButton = findViewById(R.id.registerButton);
 
+//        registerButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                LoginActivity.this.startActivity(registerIntent);
+//            }
+//        });
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent registerIntent = new Intent(LoginActivity.this, Register2.class);
                 LoginActivity.this.startActivity(registerIntent);
             }
         });

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "827626598411",
+    "firebase_url": "https://grazie-bc649.firebaseio.com",
+    "project_id": "grazie-bc649",
+    "storage_bucket": "grazie-bc649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827626598411:android:0c6157c3528a82ae",
+        "android_client_info": {
+          "package_name": "com.example.minsup.grazie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827626598411-9gelr24shfl7an72gafmp0chio0b5u0s.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "827626598411-9gelr24shfl7an72gafmp0chio0b5u0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR8lyefktbHiwWy-bKYBQYwZ1ENhAbmK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
