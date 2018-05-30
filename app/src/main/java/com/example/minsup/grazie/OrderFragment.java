@@ -3,7 +3,11 @@ package com.example.minsup.grazie;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,17 +41,17 @@ public class OrderFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_order, container, false);
 
         // 주문정보
-        ImageView orderImage = v.findViewById(R.id.orderImage);
+        final ImageView orderImage = v.findViewById(R.id.orderImage);
         TextView orderName = v.findViewById(R.id.orderName);
         TextView orderTaste = v.findViewById(R.id.orderTaste);
         TextView orderEngName = v.findViewById(R.id.orderEngName);
         TextView orderPrice = v.findViewById(R.id.orderPrice);
 
-        Bitmap menuImage = getArguments().getParcelable("menuImage");
-        String menuName = getArguments().getString("menuName");
-        String menuTaste = getArguments().getString("menuTaste");
-        String menuEngName = getArguments().getString("menuEngName");
-        String menuPrice = getArguments().getString("menuPrice");
+        final Bitmap menuImage = getArguments().getParcelable("menuImage");
+        final String menuName = getArguments().getString("menuName");
+        final String menuTaste = getArguments().getString("menuTaste");
+        final String menuEngName = getArguments().getString("menuEngName");
+        final String menuPrice = getArguments().getString("menuPrice");
 
         orderImage.setImageBitmap(menuImage);
         orderName.setText(menuName);
@@ -144,6 +148,15 @@ public class OrderFragment extends Fragment {
         order_put.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShoppingBasket shoppingBasket = new ShoppingBasket();
+
+                Intent intent = new Intent(getActivity(), ShoppingBasket.class);
+                intent.putExtra("orderImage", menuImage);
+                intent.putExtra("orederName", menuName);
+                intent.putExtra("orderTaste", menuTaste);
+                intent.putExtra("orderEngName", menuEngName);
+                intent.putExtra("orderPrice", menuPrice);
+
 
             }
         });
@@ -156,6 +169,10 @@ public class OrderFragment extends Fragment {
         });
 
         return v;
+    }
+
+    public interface OnAppluSelectedListener {
+        public void onCategoryApplySelected();
     }
 
 }

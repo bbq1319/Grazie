@@ -41,26 +41,26 @@ public class BeverageFragment extends Fragment {
         listView = v.findViewById(R.id.menuBervListview);
         listView.setAdapter(adapter);
 
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "망고요거트스무디", "", "Mango Yoghurt Smoothie", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "키위요거트스무디", "", "Kiwi Yoghurt Smoothie", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "딸기요거트스무디", "", "Strawberry Yoghurt Smoothie", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "유자요거트스무디", "", "Citron Yoghurt Smoothie", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "플레인요거트스무디", "", "Plain Yoghurt Smoothie", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "블루베리요거트스무디", "", "Blueberry Yoghurt Smoothie", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "민트초코프라페", "", "Mint Chocolate Frappe", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "모카프라페", "", "Mocha Frappe", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "카라멜프라페", "", "Caramel Frappe", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "그린티프라페", "", "Green-Tee Frappe", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "오곡프라페", "", "Grain Frappe", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "자색고구마프라페", "", "Pupple Sweet Potato Frappe", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "돼지프라페", "", "", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.mangoyoghurt), "망고요거트스무디", "", "Mango Yoghurt Smoothie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.kiwiyoghurt), "키위요거트스무디", "", "Kiwi Yoghurt Smoothie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.strawberryyoghurt), "딸기요거트스무디", "", "Strawberry Yoghurt Smoothie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.citronyoghurt), "유자요거트스무디", "", "Citron Yoghurt Smoothie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.plainyoghurt), "플레인요거트스무디", "", "Plain Yoghurt Smoothie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.blueberryyoghurt), "블루베리요거트스무디", "", "Blueberry Yoghurt Smoothie", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.mintchocofrappe), "민트초코프라페", "", "Mint Chocolate Frappe", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.mochafrappe), "모카프라페", "", "Mocha Frappe", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.caramelfrappe), "카라멜프라페", "", "Caramel Frappe", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.greenteafrappe), "그린티프라페", "", "Green-Tee Frappe", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.grainfrappe), "오곡프라페", "", "Grain Frappe", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.pupplesweetfrappe), "자색고구마프라페", "", "Pupple Sweet Potato Frappe", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.pigfrappe), "돼지프라페", "", "", "2000원");
 
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "체리에이드", "", "Cherry Ade", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "레몬에이드", "", "Lemon Ade", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "자몽에이드", "", "Grape fruit Ade", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "청포도에이드", "", "Green-Grape Ade", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "유자에이드", "", "Citron Ade", "2000원");
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.americano), "블루레몬에이드", "", "Blue Lemon Ade", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.cherryade), "체리에이드", "", "Cherry Ade", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.lemonade), "레몬에이드", "", "Lemon Ade", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.grapefruitade), "자몽에이드", "", "Grape fruit Ade", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.greengrapeade), "청포도에이드", "", "Green-Grape Ade", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.citronade), "유자에이드", "", "Citron Ade", "2000원");
+        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.bluelemonade), "블루레몬에이드", "", "Blue Lemon Ade", "2000원");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
