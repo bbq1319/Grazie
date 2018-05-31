@@ -17,9 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.ByteArrayOutputStream;
 
 
@@ -35,9 +32,6 @@ public class OrderFragment extends Fragment {
     String menuName, menuTaste, menuEngName, menuPrice;
     EditText arrival_edit;
     Bitmap menuImage;
-
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     public OrderFragment() {
         // Required empty public constructor
@@ -182,19 +176,14 @@ public class OrderFragment extends Fragment {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] bytes = stream.toByteArray();
-
-                    databaseReference.child("order").child("orderImage").push().setValue(menuImage);
-                    databaseReference.child("order").child("orderName").push().setValue(menuName);
-                    databaseReference.child("order").child("orderPrice").push().setValue(menuPrice);
-                    databaseReference.child("order").child("orderQuantity").push().setValue(amount);
-                    databaseReference.child("order").child("orderArrival").push().setValue(orderArrival);
-                    databaseReference.child("order").child("menuChoiceTaste").push().setValue(menuChoiceTaste);
+                    amount = Integer.parseInt(orderQuantity.getText().toString());
+                    String orderQuantity = String.valueOf(amount);
 
                     Intent intent = new Intent(getActivity(), ShoppingBasket.class);
                     intent.putExtra("orderImage", bytes);
                     intent.putExtra("orderName", menuName);
                     intent.putExtra("orderPrice", menuPrice);
-                    intent.putExtra("orderQuantity", amount);
+                    intent.putExtra("orderQuantity", orderQuantity);
                     intent.putExtra("orderArrival", orderArrival);
                     intent.putExtra("menuChoiceTaste", menuChoiceTaste);
                     startActivityForResult(intent, 1);

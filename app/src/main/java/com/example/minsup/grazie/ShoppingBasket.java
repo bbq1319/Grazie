@@ -1,6 +1,9 @@
 package com.example.minsup.grazie;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +26,14 @@ public class ShoppingBasket extends AppCompatActivity {
     private DatabaseReference mReference;
     private ChildEventListener mChild;
 
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
     ListView listView;
     ShoppingListViewAdapter adapter;
-    List<Object> array = new ArrayList<Object>();
+    List<ShoppingListViewItem> datas = new ArrayList<>();
 
-    String orderName, orderPrice, orderQuantity, orderArrival, menuChoiceTaste;
+    String orderName, orderPrice, orderQuantity, orderArrival, orderChoiceTaste;
     Drawable drawable;
     Bitmap bitmap;
 
@@ -43,7 +49,7 @@ public class ShoppingBasket extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
+        getWindow().setLayout((int) (width * 0.8), (int) (height * 0.8));
 
 
         // 아이템 가져오기
@@ -51,26 +57,52 @@ public class ShoppingBasket extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-        initDatabase();
+        try {
+            Intent intent = getIntent();
+            byte[] bytes = intent.getByteArrayExtra("orderImage");
+            orderName = intent.getStringExtra("orderName");
+            orderPrice = intent.getStringExtra("orderPrice");
+            orderQuantity = intent.getStringExtra("orderQuantity");
+            orderArrival = intent.getStringExtra("orderArrival");
+            orderChoiceTaste = intent.getStringExtra("menuChoiceTaste");
 
-        mReference = mDatabase.getReference("order"); // 변경값을 확인할 child 이름
-        mReference.addValueEventListener(new ValueEventListener() {
+            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            drawable = new BitmapDrawable(bitmap);
+
+            // db 값 저장
+            databaseReference.child("order").child("orderName").push().setValue(orderName);
+            databaseReference.child("order").child("orderPrice").push().setValue(orderPrice);
+            databaseReference.child("order").child("orderQuantity").push().setValue(orderQuantity);
+            databaseReference.child("order").child("orderArrival").push().setValue(orderArrival);
+            databaseReference.child("order").child("orderChoiceTaste").push().setValue(orderChoiceTaste);
+
+            setData();
+
+            adapter.addItem(drawable, orderName, orderPrice, orderQuantity, orderArrival, orderChoiceTaste);
+
+            setResult(1, intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    private void setData() {
+        mReference = firebaseDatabase.getReference("order"); // 변경값을 확인할 child 이름
+        DatabaseReference mRefName = mReference.child("orderName");
+
+        mRefName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                for (DataSnapshot Data : dataSnapshot.getChildren()) {
                     // child 내에 있는 데이터만큼 반복합니다.
+                    orderName = Data.getValue().toString();
 
-                    orderName = data.child("orderName").getValue().toString();
-                    orderPrice = data.child("orderPrice").getValue().toString();
-                    orderQuantity = data.child("orderQuantity").getValue().toString();
-                    orderArrival = data.child("orderArrival").getValue().toString();
-                    menuChoiceTaste = data.child("menuChoiceTaste").getValue().toString();
-
-                    adapter.addItem(drawable, orderName, orderPrice, orderQuantity, orderArrival, menuChoiceTaste);
                 }
-
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -78,68 +110,6 @@ public class ShoppingBasket extends AppCompatActivity {
 
             }
         });
-
-//        try{
-//            Intent intent = getIntent();
-//            byte[] bytes = intent.getByteArrayExtra("orderImage");
-//            String orderName = intent.getStringExtra("orderName");
-//            String orderPrice = intent.getStringExtra("orderPrice");
-//            String orderQuantity = intent.getStringExtra("orderQuantity");
-//            String orderArrival = intent.getStringExtra("orderArrival");
-//            String orderChoiceTaste = intent.getStringExtra("menuChoiceTaste");
-//
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//            Drawable drawable = new BitmapDrawable(bitmap);
-//
-//            adapter.addItem(drawable, orderName, orderPrice, orderQuantity, orderArrival,orderChoiceTaste);
-//
-//            setResult(1, intent);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
-
-    private void initDatabase() {
-
-        mDatabase = FirebaseDatabase.getInstance();
-
-        mReference = mDatabase.getReference("log");
-        mReference.child("log").setValue("check");
-
-        mChild = new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        mReference.addChildEventListener(mChild);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mReference.removeEventListener(mChild);
-    }
-
 }
 
