@@ -1,7 +1,6 @@
 package com.example.minsup.grazie;
 
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,6 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.ByteArrayOutputStream;
 
 
@@ -30,7 +32,12 @@ public class OrderFragment extends Fragment {
     String menuChoiceTaste, orderArrival;
     Boolean arrivalCheck = false;
 
+    String menuName, menuTaste, menuEngName, menuPrice;
     EditText arrival_edit;
+    Bitmap menuImage;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     public OrderFragment() {
         // Required empty public constructor
@@ -49,11 +56,11 @@ public class OrderFragment extends Fragment {
         TextView orderEngName = v.findViewById(R.id.orderEngName);
         TextView orderPrice = v.findViewById(R.id.orderPrice);
 
-        final Bitmap menuImage = getArguments().getParcelable("menuImage");
-        final String menuName = getArguments().getString("menuName");
-        final String menuTaste = getArguments().getString("menuTaste");
-        final String menuEngName = getArguments().getString("menuEngName");
-        final String menuPrice = getArguments().getString("menuPrice");
+        menuImage = getArguments().getParcelable("menuImage");
+        menuName = getArguments().getString("menuName");
+        menuTaste = getArguments().getString("menuTaste");
+        menuEngName = getArguments().getString("menuEngName");
+        menuPrice = getArguments().getString("menuPrice");
 
         orderImage.setImageBitmap(menuImage);
         orderName.setText(menuName);
@@ -63,17 +70,18 @@ public class OrderFragment extends Fragment {
 
 
         // 수량체크
-        final TextView quantity = v.findViewById(R.id.orderQuantity);
+        final TextView orderQuantity = v.findViewById(R.id.orderQuantity);
         Button order_plus = v.findViewById(R.id.orderPlus);
         Button order_minus = v.findViewById(R.id.orderMinus);
 
-        quantity.setText("" + amount);
+        orderQuantity.setText("" + amount);
+        amount = Integer.parseInt(orderQuantity.getText().toString());
 
         order_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                amount = Integer.parseInt(quantity.getText().toString()) + 1;
-                quantity.setText("" + amount);
+                amount = Integer.parseInt(orderQuantity.getText().toString()) + 1;
+                orderQuantity.setText("" + amount);
             }
         });
 
@@ -83,8 +91,8 @@ public class OrderFragment extends Fragment {
                 if(amount <= 1){
                     Toast.makeText(getActivity().getApplicationContext(), "1개 이상 주문하셔야 합니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    amount = Integer.parseInt(quantity.getText().toString()) - 1;
-                    quantity.setText("" + amount);
+                    amount = Integer.parseInt(orderQuantity.getText().toString()) - 1;
+                    orderQuantity.setText("" + amount);
                 }
             }
         });
@@ -175,13 +183,22 @@ public class OrderFragment extends Fragment {
                     menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] bytes = stream.toByteArray();
 
+                    databaseReference.child("order").child("orderImage").push().setValue(menuImage);
+                    databaseReference.child("order").child("orderName").push().setValue(menuName);
+                    databaseReference.child("order").child("orderPrice").push().setValue(menuPrice);
+                    databaseReference.child("order").child("orderQuantity").push().setValue(amount);
+                    databaseReference.child("order").child("orderArrival").push().setValue(orderArrival);
+                    databaseReference.child("order").child("menuChoiceTaste").push().setValue(menuChoiceTaste);
+
                     Intent intent = new Intent(getActivity(), ShoppingBasket.class);
                     intent.putExtra("orderImage", bytes);
                     intent.putExtra("orderName", menuName);
                     intent.putExtra("orderPrice", menuPrice);
+                    intent.putExtra("orderQuantity", amount);
                     intent.putExtra("orderArrival", orderArrival);
                     intent.putExtra("menuChoiceTaste", menuChoiceTaste);
                     startActivityForResult(intent, 1);
+
                 } else {
                     Toast.makeText(getActivity(), "도착시간 확인버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
                 }

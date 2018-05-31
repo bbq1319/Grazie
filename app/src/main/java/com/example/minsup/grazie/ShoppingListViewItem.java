@@ -15,6 +15,15 @@ public class ShoppingListViewItem {
     private String menuEngName;
     private String arrivalTime;
     private String menuTasteChoice;
+    private String quantity;
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 
     public String getMenuEngName() {
         return menuEngName;
