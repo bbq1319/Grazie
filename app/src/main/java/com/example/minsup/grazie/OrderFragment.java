@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,13 +27,15 @@ import java.io.ByteArrayOutputStream;
 public class OrderFragment extends Fragment {
 
     int amount = 1;
+    String menuChoiceTaste, orderArrival;
+    Boolean arrivalCheck = false;
+
+    EditText arrival_edit;
 
     public OrderFragment() {
         // Required empty public constructor
     }
 
-
-    @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +90,25 @@ public class OrderFragment extends Fragment {
         });
 
 
+        // 예상 도착시간
+        arrival_edit = v.findViewById(R.id.arrival_edit);
+        orderArrival = arrival_edit.getText().toString();
+        final Button arrival_check = v.findViewById(R.id.arrival_check);
+        arrival_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderArrival = arrival_edit.getText().toString();
+
+                if(!orderArrival.equals("")){
+                    Toast.makeText(getActivity(), "확인되었습니다.", Toast.LENGTH_SHORT).show();
+                    arrivalCheck = true;
+                } else {
+                    Toast.makeText(getActivity(), "도착시간을 적어주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         // 스피너
         TextView taste_choice = v.findViewById(R.id.taste_choice);
         Spinner spinner_taste = v.findViewById(R.id.taste_spinner);
@@ -105,7 +127,7 @@ public class OrderFragment extends Fragment {
             spinner_taste.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                    menuChoiceTaste = (String) parent.getItemAtPosition(position);
                 }
 
                 @Override
@@ -128,7 +150,7 @@ public class OrderFragment extends Fragment {
             spinner_taste.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                    menuChoiceTaste = (String) parent.getItemAtPosition(position);
                 }
 
                 @Override
@@ -148,15 +170,21 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] bytes = stream.toByteArray();
+                if(arrivalCheck == true){
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] bytes = stream.toByteArray();
 
-                Intent intent = new Intent(getActivity(), ShoppingBasket.class);
-                intent.putExtra("orderImage", bytes);
-                intent.putExtra("orderName", menuName);
-                intent.putExtra("orderPrice", menuPrice);
-                startActivityForResult(intent, 1);
+                    Intent intent = new Intent(getActivity(), ShoppingBasket.class);
+                    intent.putExtra("orderImage", bytes);
+                    intent.putExtra("orderName", menuName);
+                    intent.putExtra("orderPrice", menuPrice);
+                    intent.putExtra("orderArrival", orderArrival);
+                    intent.putExtra("menuChoiceTaste", menuChoiceTaste);
+                    startActivityForResult(intent, 1);
+                } else {
+                    Toast.makeText(getActivity(), "도착시간 확인버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
+                }
 
 //                CoffeeFragment coffeeFragment = new CoffeeFragment();
 //                FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -170,7 +198,12 @@ public class OrderFragment extends Fragment {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println(orderArrival);
+                System.out.println(menuChoiceTaste);
+                System.out.println(orderArrival);
+                System.out.println(menuChoiceTaste);
+                System.out.println(orderArrival);
+                System.out.println(menuChoiceTaste);
             }
         });
 

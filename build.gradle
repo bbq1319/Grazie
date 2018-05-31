@@ -5,6 +5,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+
+
+        //add these two lines
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
     }
 
     dependencies {

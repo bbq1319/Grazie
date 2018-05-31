@@ -38,16 +38,28 @@ public class ShoppingBasket extends AppCompatActivity {
             byte[] bytes = intent.getByteArrayExtra("orderImage");
             String orderName = intent.getStringExtra("orderName");
             String orderPrice = intent.getStringExtra("orderPrice");
+            String orderArrival = intent.getStringExtra("orderArrival");
+            String orderChoiceTaste = intent.getStringExtra("menuChoiceTaste");
 
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             Drawable drawable = new BitmapDrawable(bitmap);
 
-            adapter.addItem(drawable, orderName, orderPrice,"1","12");
+            adapter.addItem(drawable, orderName, orderPrice, orderArrival,orderChoiceTaste);
 
             setResult(1, intent);
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("destroy!");
+        System.out.println("destroy!");
+        System.out.println("destroy!");
+        System.out.println("destroy!");
+        System.out.println("destroy!");
     }
 
 }

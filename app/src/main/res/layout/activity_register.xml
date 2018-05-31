@@ -83,11 +83,25 @@
             android:drawableLeft="@drawable/ic_lock_black_24dp"/>
 
         <EditText
+            android:id="@+id/passwordCheck"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:hint="PW Check"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:background="#5B1333"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"/>
+
+        <EditText
             android:id="@+id/name"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:hint="NAME"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
@@ -101,8 +115,8 @@
             android:id="@+id/email"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:hint="PWCheck"
-            android:inputType="textPassword"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
             android:padding="10dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
