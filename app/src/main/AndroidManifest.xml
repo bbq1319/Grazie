@@ -25,12 +25,6 @@
         <activity android:name=".LoginActivity" />
         // Register
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".Register2" />
-        <activity android:name=".Status" />
-        <activity android:name=".Register3" />
-        <activity android:name=".Register4" />
-        <activity android:name=".AddToDatabase" />
-        <activity android:name=".ViewDatabase" />
 
         // Popup
         <activity android:name=".ShoppingBasket"

@@ -3,11 +3,8 @@ package com.example.minsup.grazie;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 
 /**
@@ -148,15 +147,22 @@ public class OrderFragment extends Fragment {
         order_put.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShoppingBasket shoppingBasket = new ShoppingBasket();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] bytes = stream.toByteArray();
 
                 Intent intent = new Intent(getActivity(), ShoppingBasket.class);
-                intent.putExtra("orderImage", menuImage);
-                intent.putExtra("orederName", menuName);
-                intent.putExtra("orderTaste", menuTaste);
-                intent.putExtra("orderEngName", menuEngName);
+                intent.putExtra("orderImage", bytes);
+                intent.putExtra("orderName", menuName);
                 intent.putExtra("orderPrice", menuPrice);
+                startActivityForResult(intent, 1);
 
+//                CoffeeFragment coffeeFragment = new CoffeeFragment();
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.content, coffeeFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
 
             }
         });
@@ -171,8 +177,5 @@ public class OrderFragment extends Fragment {
         return v;
     }
 
-    public interface OnAppluSelectedListener {
-        public void onCategoryApplySelected();
-    }
-
 }
+

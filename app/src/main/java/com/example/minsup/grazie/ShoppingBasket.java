@@ -1,9 +1,13 @@
 package com.example.minsup.grazie;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.WindowManager;
 import android.widget.ListView;
 
 public class ShoppingBasket extends AppCompatActivity {
@@ -25,11 +29,26 @@ public class ShoppingBasket extends AppCompatActivity {
 
         // 아이템 가져오기
         ListView listView;
-        ShoppingListViewAdapter adapter;
-
-        adapter = new ShoppingListViewAdapter();
-
+        ShoppingListViewAdapter adapter = new ShoppingListViewAdapter();
         listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
+
+        try{
+            Intent intent = getIntent();
+            byte[] bytes = intent.getByteArrayExtra("orderImage");
+            String orderName = intent.getStringExtra("orderName");
+            String orderPrice = intent.getStringExtra("orderPrice");
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            Drawable drawable = new BitmapDrawable(bitmap);
+
+            adapter.addItem(drawable, orderName, orderPrice,"1","12");
+
+            setResult(1, intent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
 }
+

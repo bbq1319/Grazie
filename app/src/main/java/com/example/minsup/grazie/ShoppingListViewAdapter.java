@@ -52,8 +52,6 @@ public class ShoppingListViewAdapter extends BaseAdapter
 
         ImageView iconDrawable = convertView.findViewById(R.id.imageView);
         TextView menuName = convertView.findViewById(R.id.cho_name);
-        TextView menuTaste = convertView.findViewById(R.id.cho_taste);
-        TextView menuEngName = convertView.findViewById(R.id.cho_eng_name);
         TextView menuPrice = convertView.findViewById(R.id.cho_price);
         TextView arrivalTime = convertView.findViewById(R.id.cho_arrivalTime);
         TextView choiceTaste = convertView.findViewById(R.id.cho_choiceTaste);
@@ -62,8 +60,6 @@ public class ShoppingListViewAdapter extends BaseAdapter
 
         iconDrawable.setImageDrawable(shoppingListViewItem.getMenuImage());
         menuName.setText(shoppingListViewItem.getMenuName());
-        menuTaste.setText(shoppingListViewItem.getMenuTaste());
-        menuEngName.setText(shoppingListViewItem.getMenuEngName());
         menuPrice.setText(shoppingListViewItem.getMenuPrice());
         arrivalTime.setText(shoppingListViewItem.getArrivalTime());
         choiceTaste.setText(shoppingListViewItem.getMenuTasteChoice());
@@ -71,14 +67,14 @@ public class ShoppingListViewAdapter extends BaseAdapter
         return convertView;
     }
 
-    public void addItem(Drawable icon, String name, String taste, String engName, String price, String arrivalTime, String menuTasteChoice) {
+    public void addItem(Drawable icon, String name, String price, String arrivalTime, String menuTasteChoice) {
         ShoppingListViewItem item = new ShoppingListViewItem();
 
         item.setMenuImage(icon);
         item.setMenuName(name);
-        item.setMenuTaste(taste);
-        item.setMenuEngName(engName);
         item.setMenuPrice(price);
+        item.setArrivalTime(arrivalTime);
+        item.setMenuTasteChoice(menuTasteChoice);
 
         listViewItemList.add(item);
     }
