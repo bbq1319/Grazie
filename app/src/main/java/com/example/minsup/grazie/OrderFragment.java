@@ -2,7 +2,6 @@ package com.example.minsup.grazie;
 
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +16,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -33,6 +36,8 @@ public class OrderFragment extends Fragment {
     EditText arrival_edit;
     Bitmap menuImage;
 
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
     public OrderFragment() {
         // Required empty public constructor
     }
@@ -45,7 +50,7 @@ public class OrderFragment extends Fragment {
 
         // 주문정보
         final ImageView orderImage = v.findViewById(R.id.orderImage);
-        TextView orderName = v.findViewById(R.id.orderName);
+        final TextView orderName = v.findViewById(R.id.orderName);
         TextView orderTaste = v.findViewById(R.id.orderTaste);
         TextView orderEngName = v.findViewById(R.id.orderEngName);
         TextView orderPrice = v.findViewById(R.id.orderPrice);
@@ -166,27 +171,45 @@ public class OrderFragment extends Fragment {
 
         // 담기, 주문하기
         Button order_put = v.findViewById(R.id.order_put);
-        Button order = v.findViewById(R.id.order);
+        final Button order = v.findViewById(R.id.order);
 
         order_put.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(arrivalCheck == true){
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] bytes = stream.toByteArray();
-                    amount = Integer.parseInt(orderQuantity.getText().toString());
-                    String orderQuantity = String.valueOf(amount);
 
-                    Intent intent = new Intent(getActivity(), ShoppingBasket.class);
-                    intent.putExtra("orderImage", bytes);
-                    intent.putExtra("orderName", menuName);
-                    intent.putExtra("orderPrice", menuPrice);
-                    intent.putExtra("orderQuantity", orderQuantity);
-                    intent.putExtra("orderArrival", orderArrival);
-                    intent.putExtra("menuChoiceTaste", menuChoiceTaste);
-                    startActivityForResult(intent, 1);
+                    // db 값 저장
+                    Map<String, Object> map = new HashMap<>();
+                    amount = Integer.parseInt(orderQuantity.getText().toString());
+                    String quantity = String.valueOf(amount);
+
+                    DatabaseReference databaseReference = firebaseDatabase.getReference(menuName);
+
+                    map.put("menuImage", menuImage);
+                    map.put("menuName", menuName);
+                    map.put("menuPrice", menuPrice);
+                    map.put("menuQuantity", quantity);
+                    map.put("menuArrival", orderArrival);
+                    map.put("menuChoiceTaste", menuChoiceTaste);
+
+                    databaseReference.setValue(map);
+
+
+//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                    menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                    byte[] bytes = stream.toByteArray();
+//                    amount = Integer.parseInt(orderQuantity.getText().toString());
+//                    String orderQuantity = String.valueOf(amount);
+//
+//                    Intent intent = new Intent(getActivity(), ShoppingBasket.class);
+//                    intent.putExtra("orderImage", bytes);
+//                    intent.putExtra("orderName", menuName);
+//                    intent.putExtra("orderPrice", menuPrice);
+//                    intent.putExtra("orderQuantity", orderQuantity);
+//                    intent.putExtra("orderArrival", orderArrival);
+//                    intent.putExtra("menuChoiceTaste", menuChoiceTaste);
+//                    startActivityForResult(intent, 1);
 
                 } else {
                     Toast.makeText(getActivity(), "도착시간 확인버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
