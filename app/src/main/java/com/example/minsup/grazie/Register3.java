@@ -32,7 +32,6 @@ public class Register3 extends AppCompatActivity implements GoogleApiClient.OnCo
         setContentView(R.layout.activity_register3);
         mAuth = FirebaseAuth.getInstance();
 
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -43,7 +42,7 @@ public class Register3 extends AppCompatActivity implements GoogleApiClient.OnCo
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        SignInButton button = (SignInButton)findViewById(R.id.login_button);
+        SignInButton button = findViewById(R.id.login_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,9 +50,6 @@ public class Register3 extends AppCompatActivity implements GoogleApiClient.OnCo
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
-
-
-
 
     }
 
@@ -78,21 +74,17 @@ public class Register3 extends AppCompatActivity implements GoogleApiClient.OnCo
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
 
                         }else {
                             Toast.makeText(Register3.this, "FireBase아이디 생성이 완료 되었습니다", Toast.LENGTH_SHORT).show();
+                            onStart();
                         }
 
                     }
@@ -108,9 +100,6 @@ public class Register3 extends AppCompatActivity implements GoogleApiClient.OnCo
     protected void onStart() {
         super.onStart();
 
-        //if the user is already signed in
-        //we will close this activity
-        //and take the user to profile activity
         if (mAuth.getCurrentUser() != null) {
             finish();
             startActivity(new Intent(this, MainActivity.class));

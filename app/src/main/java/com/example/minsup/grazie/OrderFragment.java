@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,6 +39,7 @@ public class OrderFragment extends Fragment {
     Bitmap menuImage;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public OrderFragment() {
         // Required empty public constructor
@@ -66,7 +69,6 @@ public class OrderFragment extends Fragment {
         orderTaste.setText(menuTaste);
         orderEngName.setText(menuEngName);
         orderPrice.setText(menuPrice);
-
 
         // 수량체크
         final TextView orderQuantity = v.findViewById(R.id.orderQuantity);
@@ -166,6 +168,8 @@ public class OrderFragment extends Fragment {
                 }
             });
 
+        } else{
+            menuChoiceTaste = "";
         }
 
 
@@ -181,20 +185,19 @@ public class OrderFragment extends Fragment {
 
                     // db 값 저장
                     Map<String, Object> map = new HashMap<>();
+
                     amount = Integer.parseInt(orderQuantity.getText().toString());
                     String quantity = String.valueOf(amount);
 
-                    DatabaseReference databaseReference = firebaseDatabase.getReference(menuName);
+                    DatabaseReference databaseReference = firebaseDatabase.getReference(user.getDisplayName()).child(menuName);
 
-                    map.put("menuImage", menuImage);
                     map.put("menuName", menuName);
                     map.put("menuPrice", menuPrice);
                     map.put("menuQuantity", quantity);
                     map.put("menuArrival", orderArrival);
                     map.put("menuChoiceTaste", menuChoiceTaste);
 
-                    databaseReference.setValue(map);
-
+                    databaseReference.push().setValue(map);
 
 //                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                    menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
