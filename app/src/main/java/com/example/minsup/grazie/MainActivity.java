@@ -28,11 +28,6 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager manager2 = getFragmentManager();
                     manager2.beginTransaction().replace(R.id.content, beverageFragment).commit();
                     return true;
-                case R.id.navigation_dessert:
-                    DessertFragment dessertFragment = new DessertFragment();
-                    FragmentManager manager3 = getFragmentManager();
-                    manager3.beginTransaction().replace(R.id.content, dessertFragment).commit();
-                    return true;
                 case R.id.navigation_information:
                     InformationFragment informationFragment = new InformationFragment();
                     FragmentManager manager4 = getFragmentManager();

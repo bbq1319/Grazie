@@ -1,13 +1,14 @@
 package com.example.minsup.grazie;
 
 
-import android.app.FragmentManager;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class BeverageFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private FloatingActionButton floating;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +37,7 @@ public class BeverageFragment extends Fragment {
 
         ListView listView;
         MenuListViewAdapter adapter;
+        floating = v.findViewById(R.id.floating);
 
         adapter = new MenuListViewAdapter();
 
@@ -61,6 +64,13 @@ public class BeverageFragment extends Fragment {
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.greengrapeade), "청포도에이드", "", "Green-Grape Ade", "2000원");
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.citronade), "유자에이드", "", "Citron Ade", "2000원");
         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.bluelemonade), "블루레몬에이드", "", "Blue Lemon Ade", "2000원");
+
+        floating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ShoppingBasket.class));
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

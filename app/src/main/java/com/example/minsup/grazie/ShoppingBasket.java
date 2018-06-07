@@ -1,11 +1,12 @@
 package com.example.minsup.grazie;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,14 +24,18 @@ public class ShoppingBasket extends AppCompatActivity {
     ListView listView;
     ShoppingListViewAdapter adapter;
 
-    String orderName, orderPrice, orderQuantity, orderArrival, orderChoiceTaste;
-    Drawable drawable;
-    Bitmap bitmap;
+    int amountPrice = 0;
+    String orderName, orderPrice, orderQuantity, orderChoiceTaste;
+    TextView amount_price;
+    Button orderBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_basket);
+
+        amount_price = findViewById(R.id.amount_price);
+        orderBtn = findViewById(R.id.orderBtn);
 
         // 화면 설정
         DisplayMetrics dm = new DisplayMetrics();
@@ -47,39 +52,24 @@ public class ShoppingBasket extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-        final DatabaseReference databaseReference = firebaseDatabase.getReference().child(user.getDisplayName());
-
-        System.out.println("asdasdasdasd");
-        System.out.println(databaseReference.getKey());
+        final DatabaseReference databaseReference = firebaseDatabase.getReference().child(user.getUid());
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot Data : dataSnapshot.getChildren()) {
-                    // child 내에 있는 데이터만큼 반복합니다.
-                    String getKey = Data.child(Data.getKey()).getKey();
-                    System.out.println(Data.child("-LEAuJcAnLUqhAo-YW0H").getKey());
-                    System.out.println(Data.child("-LEAuJcAnLUqhAo-YW0H").getValue());
-                    System.out.println(Data.getKey());
-                    System.out.println(getKey);
-                    System.out.println(Data.getValue().toString());
-                    System.out.println("asdasdasdasd");
-                    System.out.println("asdasdasdasd");
-                    System.out.println("asdasdasdasd");
+                    orderName = Data.child("menuName").getValue().toString();
+                    orderPrice = Data.child("menuPrice").getValue().toString();
+                    orderQuantity = Data.child("menuQuantity").getValue().toString();
+                    orderChoiceTaste = Data.child("menuChoiceTaste").getValue().toString();
 
-                    orderName = Data.child(getKey).child("menuName").getValue().toString();
-                    orderPrice = Data.child(getKey).child("menuPrice").getValue().toString();
-                    orderQuantity = Data.child(getKey).child("menuQuantity").getValue().toString();
-                    orderArrival = Data.child(getKey).child("menuArrival").getValue().toString();
-                    orderChoiceTaste = Data.child(getKey).child("menuChoiceTaste").getValue().toString();
+                    String order_price = orderPrice.substring(0,4);
+                    amountPrice = amountPrice + Integer.parseInt(order_price) * Integer.parseInt(orderQuantity);
 
-//                    orderName = Data.child("menuName").getValue().toString();
-//                    orderPrice = Data.child("menuPrice").getValue().toString();
-//                    orderQuantity = Data.child("menuQuantity").getValue().toString();
-//                    orderArrival = Data.child("menuArrival").getValue().toString();
-//                    orderChoiceTaste = Data.child("menuChoiceTaste").getValue().toString();
-                    adapter.addItem(orderName, orderPrice + " X " + orderQuantity, orderArrival, orderChoiceTaste);
+                    amount_price.setText(String.valueOf(amountPrice) + "원");
+
+                    adapter.addItem(orderName, orderPrice + " X " + orderQuantity, orderChoiceTaste);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -90,29 +80,14 @@ public class ShoppingBasket extends AppCompatActivity {
             }
         });
 
-//        try {
-//            Intent intent = getIntent();
-//            byte[] bytes = intent.getByteArrayExtra("orderImage");
-//            orderName = intent.getStringExtra("orderName");
-//            orderPrice = intent.getStringExtra("orderPrice");
-//            orderQuantity = intent.getStringExtra("orderQuantity");
-//            orderArrival = intent.getStringExtra("orderArrival");
-//            orderChoiceTaste = intent.getStringExtra("menuChoiceTaste");
-//
-//            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//            drawable = new BitmapDrawable(bitmap);
-//
-//            // db 값 저장
-//            databaseReference.child("order").child("orderName").push().setValue(orderName);
-//            databaseReference.child("order").child("orderPrice").push().setValue(orderPrice);
-//            databaseReference.child("order").child("orderQuantity").push().setValue(orderQuantity);
-//            databaseReference.child("order").child("orderArrival").push().setValue(orderArrival);
-//            databaseReference.child("order").child("orderChoiceTaste").push().setValue(orderChoiceTaste);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
+        // 하단 부분
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

@@ -13,7 +13,6 @@ public class ShoppingListViewItem {
     private String menuPrice;
     private String menuTaste;
     private String menuEngName;
-    private String arrivalTime;
     private String menuTasteChoice;
     private String quantity;
 
@@ -63,14 +62,6 @@ public class ShoppingListViewItem {
 
     public void setMenuPrice(String menuPrice) {
         this.menuPrice = menuPrice;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
     }
 
     public String getMenuTasteChoice() {

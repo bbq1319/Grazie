@@ -50,25 +50,22 @@ public class ShoppingListViewAdapter extends BaseAdapter
 
         TextView menuName = convertView.findViewById(R.id.cho_name);
         TextView menuPrice = convertView.findViewById(R.id.cho_price);
-        TextView arrivalTime = convertView.findViewById(R.id.cho_arrivalTime);
         TextView choiceTaste = convertView.findViewById(R.id.cho_choiceTaste);
 
         ShoppingListViewItem shoppingListViewItem = listViewItemList.get(position);
 
         menuName.setText(shoppingListViewItem.getMenuName());
         menuPrice.setText(shoppingListViewItem.getMenuPrice());
-        arrivalTime.setText(shoppingListViewItem.getArrivalTime());
         choiceTaste.setText(shoppingListViewItem.getMenuTasteChoice());
 
         return convertView;
     }
 
-    public void addItem(String name, String price, String arrivalTime, String menuTasteChoice) {
+    public void addItem(String name, String price, String menuTasteChoice) {
         ShoppingListViewItem item = new ShoppingListViewItem();
 
         item.setMenuName(name);
         item.setMenuPrice(price);
-        item.setArrivalTime(arrivalTime);
         item.setMenuTasteChoice(menuTasteChoice);
 
         listViewItemList.add(item);

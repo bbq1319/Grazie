@@ -2,6 +2,7 @@ package com.example.minsup.grazie;
 
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,11 +31,7 @@ import java.util.Map;
 public class OrderFragment extends Fragment {
 
     int amount = 1;
-    String menuChoiceTaste, orderArrival;
-    Boolean arrivalCheck = false;
-
-    String menuName, menuTaste, menuEngName, menuPrice;
-    EditText arrival_edit;
+    String menuChoiceTaste, menuName, menuTaste, menuEngName, menuPrice;
     Bitmap menuImage;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -52,8 +48,8 @@ public class OrderFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_order, container, false);
 
         // 주문정보
-        final ImageView orderImage = v.findViewById(R.id.orderImage);
-        final TextView orderName = v.findViewById(R.id.orderName);
+        ImageView orderImage = v.findViewById(R.id.orderImage);
+        TextView orderName = v.findViewById(R.id.orderName);
         TextView orderTaste = v.findViewById(R.id.orderTaste);
         TextView orderEngName = v.findViewById(R.id.orderEngName);
         TextView orderPrice = v.findViewById(R.id.orderPrice);
@@ -97,26 +93,6 @@ public class OrderFragment extends Fragment {
                 }
             }
         });
-
-
-        // 예상 도착시간
-        arrival_edit = v.findViewById(R.id.arrival_edit);
-        orderArrival = arrival_edit.getText().toString();
-        final Button arrival_check = v.findViewById(R.id.arrival_check);
-        arrival_check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderArrival = arrival_edit.getText().toString();
-
-                if(!orderArrival.equals("")){
-                    Toast.makeText(getActivity(), "확인되었습니다.", Toast.LENGTH_SHORT).show();
-                    arrivalCheck = true;
-                } else {
-                    Toast.makeText(getActivity(), "도착시간을 적어주세요.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
 
         // 스피너
         TextView taste_choice = v.findViewById(R.id.taste_choice);
@@ -181,48 +157,26 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(arrivalCheck == true){
+                // db 값 저장
+                Map<String, Object> map = new HashMap<>();
 
-                    // db 값 저장
-                    Map<String, Object> map = new HashMap<>();
+                amount = Integer.parseInt(orderQuantity.getText().toString());
+                String quantity = String.valueOf(amount);
 
-                    amount = Integer.parseInt(orderQuantity.getText().toString());
-                    String quantity = String.valueOf(amount);
+                DatabaseReference databaseReference = firebaseDatabase.getReference(user.getUid());
 
-                    DatabaseReference databaseReference = firebaseDatabase.getReference(user.getDisplayName()).child(menuName);
+                map.put("menuName", menuName);
+                map.put("menuPrice", menuPrice);
+                map.put("menuQuantity", quantity);
+                map.put("menuChoiceTaste", menuChoiceTaste);
 
-                    map.put("menuName", menuName);
-                    map.put("menuPrice", menuPrice);
-                    map.put("menuQuantity", quantity);
-                    map.put("menuArrival", orderArrival);
-                    map.put("menuChoiceTaste", menuChoiceTaste);
+                databaseReference.push().setValue(map);
 
-                    databaseReference.push().setValue(map);
-
-//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                    menuImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                    byte[] bytes = stream.toByteArray();
-//                    amount = Integer.parseInt(orderQuantity.getText().toString());
-//                    String orderQuantity = String.valueOf(amount);
-//
-//                    Intent intent = new Intent(getActivity(), ShoppingBasket.class);
-//                    intent.putExtra("orderImage", bytes);
-//                    intent.putExtra("orderName", menuName);
-//                    intent.putExtra("orderPrice", menuPrice);
-//                    intent.putExtra("orderQuantity", orderQuantity);
-//                    intent.putExtra("orderArrival", orderArrival);
-//                    intent.putExtra("menuChoiceTaste", menuChoiceTaste);
-//                    startActivityForResult(intent, 1);
-
-                } else {
-                    Toast.makeText(getActivity(), "도착시간 확인버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
-                }
-
-//                CoffeeFragment coffeeFragment = new CoffeeFragment();
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.content, coffeeFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
+                CoffeeFragment coffeeFragment = new CoffeeFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.content, coffeeFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 
             }
         });
@@ -230,12 +184,11 @@ public class OrderFragment extends Fragment {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(orderArrival);
-                System.out.println(menuChoiceTaste);
-                System.out.println(orderArrival);
-                System.out.println(menuChoiceTaste);
-                System.out.println(orderArrival);
-                System.out.println(menuChoiceTaste);
+                OrderCorfirmFragment orderCorfirmFragment = new OrderCorfirmFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.content, orderCorfirmFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
