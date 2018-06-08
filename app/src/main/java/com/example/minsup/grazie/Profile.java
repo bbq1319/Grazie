@@ -3,10 +3,8 @@ package com.example.minsup.grazie;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -40,7 +38,7 @@ public class Profile extends AppCompatActivity {
         //opening the login activity
         if (mAuth.getCurrentUser() == null) {
             finish();
-            startActivity(new Intent(this, Register3.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 

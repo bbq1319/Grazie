@@ -2,44 +2,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.minsup.grazie.OrderCorfirmFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/confirmListView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8">
-
-        </ListView>
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
+            <ListView
+                android:id="@+id/confirmListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="도착시간"
-                android:textColor="@color/colorPrimary"
-                android:paddingLeft="10dp"/>
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:padding="10dp"
+                android:divider="#ffffff"
+                android:dividerHeight="8dp">
+
+            </ListView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="총액 : "
+                    android:textSize="18dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/amount_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="도착시간 : "
+                    android:textSize="18dp"
+                    android:layout_weight="3"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorPrimary"
+                    android:paddingLeft="10dp"/>
 
                 <EditText
                     android:id="@+id/arrivalEdit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="8">
+                    android:layout_weight="5">
 
                 </EditText>
 
@@ -48,23 +85,28 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:layout_margin="5dp"
                     android:text="확인"
                     android:background="@color/colorAccent"/>
 
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/confirmBtn"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="주문"
+                android:textSize="20dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/confirmBtn"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="주문"
-            android:textSize="20dp"
-            android:textColor="#ffffff"
-            android:background="@color/colorPrimaryDark"/>
+    </ScrollView>
 
-    </LinearLayout>
 
 </FrameLayout>
